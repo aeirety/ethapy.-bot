@@ -4,6 +4,7 @@ const fs = require("fs");
 
 // Community modules
 const Promise = require("promise");
+const chalk = require("chalk");
 
 function read(dir) {
     return new Promise((resolve, reject) => {
@@ -16,16 +17,17 @@ function read(dir) {
             // Find _load.js file
             if (fs.existsSync(path.join(dir, "_load.js"))) {
                 load = require(path.join(dir, "_load.js"));
-                files = files.splice("_load.js", 1);
+                files.splice(files.indexOf("_load.js"), 1);
             }
 
             // Read files
             files.map((self) => {
                 let required = require(path.join(dir, self));
 
+                console.log(self);
                 console.log(required);
-                
-                load(required);
+
+                if (load) load(required);
             });
 
             resolve();
@@ -35,7 +37,7 @@ function read(dir) {
 
 function start(dir) {
     return new Promise((resolve, reject) => {
-        console.log("Reading directories");
+        console.log(chalk.yellow("Reading directories"));
 
         // Read directory
         fs.readdir(dir, (error, dirs) => {
@@ -50,7 +52,7 @@ function start(dir) {
                 promises.push(read(path.join(dir, self)));
             });
 
-            console.log("Reading files");
+            console.log(chalk.yellow("Reading files"));
 
             Promise.all(promises).then(() => {
                 resolve();
@@ -63,10 +65,10 @@ function start(dir) {
 
 module.exports = () => {
     return new Promise((resolve, reject) => {
-        console.log("Loading");
+        console.log(chalk.yellow("Loading"));
 
         start(path.join(__dirname, "../../loader")).then(() => {
-            console.log("Loaded");
+            console.log(chalk.yellow("Loaded"));
             resolve();
         }).catch(error => {
             reject(error);
