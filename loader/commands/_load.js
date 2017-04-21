@@ -1,3 +1,3 @@
-modules.exports = (self) => {
-    console.log(self);
+module.exports = (self) => {
+
 };
