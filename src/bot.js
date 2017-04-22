@@ -7,7 +7,7 @@ const chalk = require("chalk");
 let bot = new Discord.Client();
 
 bot.on("ready", () => {
-    console.log(chalk.yellow("Bot ready"));
+    console.log("Bot ready");
 });
 
 module.exports.start = () => {

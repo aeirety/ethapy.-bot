@@ -14,8 +14,8 @@ class Command {
         return this;
     }
 
-    setArguments(arguments) {
-        this.arguments = arguments;
+    setArguments(args) {
+        this.arguments = args;
         return this;
     }
 

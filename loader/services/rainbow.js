@@ -40,7 +40,7 @@ function start(bot) {
 
         i++;
         if (i > colors.length) i = 0;
-    }, 500);
+    }, 250);
 }
 
 module.exports = (bot) => {
@@ -48,5 +48,3 @@ module.exports = (bot) => {
         start(bot);
     });
 };
-
-//TODO: Load colors and guild from config
