@@ -1,27 +1,48 @@
+// System modules
+const path = require("path");
+
 // Community modules
 const Promise = require("promise");
 
-let commands = [];
+// Imports
+const argumentParser = require(path.join(__dirname, "argumentParser.js"));
 
-exports.register = (command) => {
-    commands.push(command);
-};
-
-function parse(message, args, cmds) {
-    
+function resolveObject(command, args) {
+    return {
+        command: command,
+        args: args
+    };
 }
 
-exports.parse = (message) => {
+function rejectObject(command, error) {
+    return {
+        command: command,
+        error: error
+    };
+}
+
+function parse(args, commands) {
     return new Promise((resolve, reject) => {
-        // Check if the message starts with prefix case insensitive
-        if (!message.content.toUpperCase().startsWith(prefix.toUpperCase)) resolve();
+        commands.map(command => {
+            if (!command.name.toUpperCase() == args[0].toUpperCase()) return;
+            
+            args.shift();
 
-        let args = message.content.substring(prefix.length).split(" ");
-
-        commands.map((command) => {
-
+            // If the command has subcommands parse with sub commands
+            if (command.subcommands) {
+                if (args[0]) resolve(resolveObject(command, []));
+                else parse(args, command.subcommands).then(object => {
+                    resolve(object);
+                }).catch(object => {
+                    reject(object);
+                });
+            } else argumentParser.parse(args, command).then(newArgs => {
+                resolve(resolveObject(command, newArgs));
+            }).catch(error => {
+                reject(rejectObject(command, error));
+            });
         });
     });
-};
+}
 
-exports.commands = commands;
+exports.parse = parse;
