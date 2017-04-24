@@ -10,7 +10,7 @@ bot.on("ready", () => {
     console.log("Bot ready");
 });
 
-module.exports.start = () => {
+exports.start = () => {
     return new Promise((resolve, reject) => {
         console.log(chalk.yellow("Logging in bot"));
 
@@ -24,4 +24,4 @@ module.exports.start = () => {
     });
 }
 
-module.exports.bot = bot;
+exports.bot = bot;
