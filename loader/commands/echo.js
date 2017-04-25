@@ -9,8 +9,10 @@ module.exports = new Command("echo")
     .setDescription("Make the bot repeat what you say")
     .setArguments([
         new Argument("message")
+            .setType("string")
+            .setOptional(false)
             .setInfinite(true)
     ])
     .setExecute((executable) => {
-        executable.channel.sendMessage("Pong");
+        executable.channel.sendMessage(executable.args[0]);
     });

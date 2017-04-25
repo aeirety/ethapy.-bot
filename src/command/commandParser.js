@@ -23,9 +23,11 @@ function rejectObject(command, error) {
 
 function parse(args, commands) {
     return new Promise((resolve, reject) => {
-        commands.map(command => {
-            if (!command.name.toUpperCase() == args[0].toUpperCase()) return;
-            
+        for (let i = 0; i < commands.length; i++) {
+            let command = commands[i];
+
+            if (command.name.toUpperCase() != args[0].toUpperCase()) continue;
+
             args.shift();
 
             // If the command has subcommands parse with sub commands
@@ -41,7 +43,9 @@ function parse(args, commands) {
             }).catch(error => {
                 reject(rejectObject(command, error));
             });
-        });
+
+            break;
+        }
     });
 }
 

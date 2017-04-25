@@ -10,8 +10,8 @@ let prefix = "!";
 function executable(message, args) {
     return {
         message: message,
-        channel: channel,
-        guild: guild,
+        channel: message.channel,
+        guild: message.guild,
         args: args
     }
 }
@@ -23,7 +23,7 @@ module.exports = (bot) => {
         console.log(message.channel.name + "@" + message.author.username + ": " + message.content);
 
         // If the message starts with prefix case insensitive
-        if (!message.content.toUpperCase().startsWith(prefix.toUpperCase)) return;
+        if (!message.content.toUpperCase().startsWith(prefix.toUpperCase())) return;
 
         let args = message.content.substring(prefix.length).split(" ");
 

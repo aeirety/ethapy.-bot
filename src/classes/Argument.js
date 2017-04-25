@@ -6,14 +6,17 @@ class Argument {
 
     setOptional(optional) {
         this.optional = optional;
+        return this;
     }
 
     setInfinite(infinite) {
         this.infinite = infinite;
+        return this;
     }
 
     setType(type) {
         this.type = type;
+        return this;
     }
 
 }
