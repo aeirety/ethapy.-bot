@@ -41,5 +41,9 @@ module.exports = new Command("8ball")
             .setInfinite(true)
     ])
     .setExecute(executable => {
-        executable.channel.sendMessage(getFortune());
+        executable.channel.sendMessage("🎱 **Hmmm...** Let me see...").then(message => {
+            setTimeout(() => {
+                message.edit("🎱 " + getFortune() + "!");
+            }, 1000);
+        });
     });

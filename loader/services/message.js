@@ -16,7 +16,7 @@ function executable(message, args) {
     }
 }
 
-module.exports = (bot) => {
+module.exports = bot => {
     bot.on("message", message => {
         if (message.author.equals(bot.user)) return;
 
@@ -31,7 +31,7 @@ module.exports = (bot) => {
         commandParser.parse(args, command.commands).then(object => {
             object.command.execute(executable(message, object.args));
         }).catch(object => {
-            message.channel.sendMessage(object.error);
+            message.channel.sendMessage("❌ **Syntax error!** " + object.error);
         });
     });
 };

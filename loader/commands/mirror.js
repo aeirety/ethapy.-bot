@@ -20,5 +20,5 @@ module.exports = new Command("mirror")
             .setInfinite(true)
     ])
     .setExecute((executable) => {
-        executable.channel.sendMessage(mirror(executable.args[0]));
+        executable.channel.sendMessage("🔮 " + mirror(executable.args[0]));
     });

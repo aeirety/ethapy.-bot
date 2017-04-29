@@ -41,6 +41,7 @@ function parse(args, commands) {
             } else argumentParser.parse(args, command).then(newArgs => {
                 resolve(resolveObject(command, newArgs));
             }).catch(error => {
+                console.log("asdasdasd" + error);
                 reject(rejectObject(command, error));
             });
 
