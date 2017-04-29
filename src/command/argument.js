@@ -1,6 +1,6 @@
 let args = [];
 
-exports.register = (argument) => {
+exports.register = argument => {
     args.push(argument);
 };
 

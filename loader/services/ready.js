@@ -44,6 +44,8 @@ module.exports = bot => {
             if (i > colors.length) i = 0;
         }, 250);
 
+        bot.user.setGame("SEND HELP!");
+
         ready = true;
     });
 };
